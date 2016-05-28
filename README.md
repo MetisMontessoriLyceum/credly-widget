@@ -2,7 +2,7 @@
 
 ## Setup
 
-1. install nodejs
+1. install [nodejs](https://nodejs.org/en/download/package-manager/), latest version.
 2. run `npm install` to install the dependencies
 3. run `npm start` to run the server, may need root in order to host at port 80
 
