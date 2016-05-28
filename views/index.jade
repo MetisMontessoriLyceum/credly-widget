@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  .widget
+    header= user.name
+    .badges
+      for badge in user.badges
+        .badge
+          //- img(src='#{badge.image}')
+          header= badge.title
+          p= badge.description
+    footer
+      .grow
+      .fa.fa-code
+      | with
+      .fa.fa-heart
+      | by Noah Loomans
