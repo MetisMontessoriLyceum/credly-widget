@@ -1,0 +1,5 @@
+#!/bin/bash
+echo "const credly = require('./lib/credly'); credly.request('$1').then(data => {console.log(JSON.stringify(data)); process.exit(0);})" | node
+
+#| node > apiout.json; google-chrome apiout.json
+
