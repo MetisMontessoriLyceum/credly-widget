@@ -22,7 +22,7 @@ router.get('/:id', function(req, res, next) {
         image: badge.image
       }
     })
-    res.render('index',{user: user})
+    res.render('badges',{user: user})
   })
 
   // credly.request(`/members/${req.params.id}`)

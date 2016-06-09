@@ -19,15 +19,43 @@ router.get('/:id/:badge', function(req, res, next) {
 
   resolveUserId(req.params.id).then(userId => {
     let badgeTitle = req.params.badge;
-
     credly.request(`/members/${userId}/badges/given`).then(badgesGiven => {
-      let resJson = []
+      let resJson = [];
+      let users = [];
       badgesGiven
         .filter(badge => badge.title === badgeTitle)
         .forEach(badge => {
           resJson.push(badge.member.display_name);
-        })
-      res.json(resJson);
+          users.push(badge.member);
+        });
+
+      console.log(resJson);
+      console.log(users);
+
+      let apiPromises = [];
+
+      for (let i=0; i<users.length; i++) {
+        console.log(`pushing ${users[i].id}`);
+        apiPromises.push(credly.request(`/members/${users[i].id}/badges`));
+      }
+
+      console.log(apiPromises);
+
+      Promise.all(apiPromises).then(apiRes => {
+        let data = {users: []};
+        for (let userIndex=0; userIndex<apiRes.length; userIndex++) {
+          let name = users[userIndex].display_name;
+          let badges = apiRes[userIndex];
+          let ICTInDeWolkenBadges = badges.filter(badge => {
+            return badge.issuer.slug == 'ictindewolken';
+          });
+          data.users.push({name: name, numberOfCoderClassBadges: ICTInDeWolkenBadges.length});
+          console.log(`${name} has ${badges.length} badges, from \
+            with ${ICTInDeWolkenBadges.length} are ICT in de wolken badges`);
+        }
+        data.users.sort((a, b) => b.numberOfCoderClassBadges - a.numberOfCoderClassBadges);
+        res.render('ranking', data);
+      })
     })
   })
 

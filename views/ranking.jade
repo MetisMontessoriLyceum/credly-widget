@@ -1,0 +1,10 @@
+extends widged
+
+block widged_content
+    header CoderClass ranking
+    table.ranking
+      for user,index in users
+        tr.user
+          td.rank= index+1
+          td.name= user.name
+          td.amount= user.numberOfCoderClassBadges

@@ -1,0 +1,10 @@
+extends widged
+
+block widged_content
+    header= user.name
+    .badges
+      for badge in user.badges
+        .badge
+          //- img(src='#{badge.image}')
+          header= badge.title
+          p= badge.description

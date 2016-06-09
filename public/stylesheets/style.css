@@ -71,3 +71,28 @@ footer .fa {
 .grow {
   flex-grow: 1;
 }
+
+.ranking {
+  margin: 10px;
+}
+.ranking .user > * {;
+  padding: 10px;
+  padding-right: 5px;
+  border-bottom: 1px dashed #e5e5e5;
+}
+
+.ranking .name {
+  width: 100%;
+}
+
+.ranking .user:last-child > * {
+  border-bottom: 0;
+}
+
+.ranking .rank {
+  font-weight: bold;
+}
+
+.ranking .rank:before {
+  content: "#";
+}
