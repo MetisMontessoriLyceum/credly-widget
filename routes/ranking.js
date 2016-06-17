@@ -7,6 +7,12 @@ let credly = require('../lib/credly')
 let async = require('asyncawait/async')
 let await = require('asyncawait/await')
 
+/**
+ * resolveUserId - resolves the user id or a slag in a credly user id.
+ *
+ * @param  {string or number} userId The user id or the slag of a credly user.
+ * @return {number} the user id of a credy user.
+ */
 function resolveUserId(userId) {
   return new Promise(function(resolve, reject) {
     if (parseInt(userId) === NaN) {
@@ -20,104 +26,51 @@ function resolveUserId(userId) {
   })
 }
 
+/**
+ * GET /ranking/:id/:badge - generates a ranking table.
+ *
+ * This router will look up witch users have a spesific badge, and rank them
+ * based on how manny badges they got from {:id}.
+ *
+ * @param {:id} the userId or slag of the user who gave the identifying badge.
+ * @param {:badge} the badge name used to identify the users to rank.
+ */
 router.get('/:id/:badge', async (function(req, res, next) {
 
-  let userId = await (resolveUserId(req.params.id))
-  let badgeTitle = req.params.badge
-  let badgesGiven = await (credly.request(`/members/${userId}/badges/given`))
+  // The credly api only allows a user id, if a slag was given, resolve
+  // into a user id.
+  let identifyingUserId = await (resolveUserId(req.params.id))
+  let identifyingBadgeTitle = req.params.badge
+  let badgesGiven =
+      await (credly.request(`/members/${identifyingUserId}/badges/given`))
   let resJson = []
   let users = []
   badgesGiven
-    .filter(badge => badge.title === badgeTitle)
+    .filter(badge => badge.title === identifyingBadgeTitle)
     .forEach(badge => {
       users.push(badge.member)
     })
 
-  console.log(users)
+  // We now have identifyed with users to rank, request the badges of these
+  // users.
+  let badgesOfMatchingUsersPromises =
+      users.map(user => credly.request(`/members/${user.id}/badges`))
+  let badgesOfMatchingUsers = await (badgesOfMatchingUsersPromises)
 
-  let apiPromises = []
-
-  for (let i=0; i<users.length; i++) {
-    console.log(`pushing ${users[i].id}`)
-    apiPromises.push(credly.request(`/members/${users[i].id}/badges`))
-  }
-
-  console.log(apiPromises)
-
-  let badgesOfUsers = await (apiPromises)
+  // Format the data.
   let data = {users: []}
-  for (let userIndex=0; userIndex<badgesOfUsers.length; userIndex++) {
-    let name = users[userIndex].display_name
-    let badges = badgesOfUsers[userIndex]
-    let ICTInDeWolkenBadges = badges.filter(badge => {
-      return badge.issuer.slug == 'ictindewolken'
+  for (let userIndex=0; userIndex<badgesOfMatchingUsers.length; userIndex++) {
+    let userBadges = badgesOfMatchingUsers[userIndex]
+    data.users.push({
+      name: users[userIndex].display_name,
+      badges: userBadges,
+      badgesFromIdentifyingUser: userBadges.filter(badge =>
+          badge.issuer.id == identifyingUserId)
     })
-    data.users.push({name: name, numberOfCoderClassBadges: ICTInDeWolkenBadges.length})
-    console.log(`${name} has ${badges.length} badges, from \
-      with ${ICTInDeWolkenBadges.length} are ICT in de wolken badges`)
   }
-  data.users.sort((a, b) => b.numberOfCoderClassBadges - a.numberOfCoderClassBadges)
+  data.users.sort((a, b) =>
+      b.badgesFromIdentifyingUser.length - a.badgesFromIdentifyingUser.length)
   res.render('ranking', data)
-
-
-  // let userId = await resolveUserId(req.params.id)
-  // let badgeTitle = req.params.badge
-  //
-  // let badgesGiven = await credly.request(`/members/${userId}/badges/given`)
-  // let resJson = []
-  // badgesGiven
-  //   .filter(badge => badge.title === badgeTitle)
-  //   .forEach(badge => {
-  //     resJson.push(badge.member.display_name)
-  //   })
-  // res.json(resJson)
-
-
-//   let users = req.params.id.split('+')
-//
-//   let allApiPromises = []
-//
-//   for (let i=0; i<users.length; i++) {
-//     let apiPromises = [
-//       credly.request(`/members/${users[i]}`),
-//       credly.request(`/members/${users[i]}/badges`)
-//     ]
-//
-//     allApiPromises.push(Promise.all(apiPromises))
-//   }
-//
-//   Promise.all(allApiPromises).then(apiRes => {
-//     for (let userIndex=0; userIndex<apiRes.length; userIndex++) {
-//       let name = apiRes[userIndex][0].display_name
-//       let badges = apiRes[userIndex][1]
-//       let ICTInDeWolkenBadges = badges.filter(badge =>
-//         badge.issuer.slug == 'ictindewolken')
-//       console.log(`${name} has ${badges.length} badges, from \
-// with ${ICTInDeWolkenBadges.length} are ICT in de wolken badges`)
-//     }
-//     res.json(apiRes)
-//   })
-
-  // let user = {}
-  //
-  // let apiPromises = [
-  //   credly.request(`/members/${req.params.id}`),
-  //   credly.request(`/members/${req.params.id}/badges`)
-  // ]
-  //
-  // console.time('api requests')
-  // Promise.all(apiPromises).then(apiRes => {
-  //   console.timeEnd('api requests')
-  //   user.name = apiRes[0].display_name
-  //   user.badges = apiRes[1].map(badge => {
-  //     return {
-  //       title: badge.title,
-  //       description: badge.description,
-  //       image: badge.image
-  //     }
-  //   })
-  //   res.render('index',{user: user})
-  // })
 
 }))
 
