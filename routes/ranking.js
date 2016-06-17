@@ -2,6 +2,11 @@ let express = require('express')
 let router = express.Router()
 let credly = require('../lib/credly')
 
+// This allows us to use the es2016 await. for more info see
+// https://github.com/yortus/asyncawait
+let async = require('asyncawait/async')
+let await = require('asyncawait/await')
+
 function resolveUserId(userId) {
   return new Promise(function(resolve, reject) {
     if (parseInt(userId) === NaN) {
@@ -15,49 +20,44 @@ function resolveUserId(userId) {
   })
 }
 
-router.get('/:id/:badge', function(req, res, next) {
+router.get('/:id/:badge', async (function(req, res, next) {
 
-  resolveUserId(req.params.id).then(userId => {
-    let badgeTitle = req.params.badge
-    credly.request(`/members/${userId}/badges/given`).then(badgesGiven => {
-      let resJson = []
-      let users = []
-      badgesGiven
-        .filter(badge => badge.title === badgeTitle)
-        .forEach(badge => {
-          resJson.push(badge.member.display_name)
-          users.push(badge.member)
-        })
-
-      console.log(resJson)
-      console.log(users)
-
-      let apiPromises = []
-
-      for (let i=0; i<users.length; i++) {
-        console.log(`pushing ${users[i].id}`)
-        apiPromises.push(credly.request(`/members/${users[i].id}/badges`))
-      }
-
-      console.log(apiPromises)
-
-      Promise.all(apiPromises).then(apiRes => {
-        let data = {users: []}
-        for (let userIndex=0; userIndex<apiRes.length; userIndex++) {
-          let name = users[userIndex].display_name
-          let badges = apiRes[userIndex]
-          let ICTInDeWolkenBadges = badges.filter(badge => {
-            return badge.issuer.slug == 'ictindewolken'
-          })
-          data.users.push({name: name, numberOfCoderClassBadges: ICTInDeWolkenBadges.length})
-          console.log(`${name} has ${badges.length} badges, from \
-            with ${ICTInDeWolkenBadges.length} are ICT in de wolken badges`)
-        }
-        data.users.sort((a, b) => b.numberOfCoderClassBadges - a.numberOfCoderClassBadges)
-        res.render('ranking', data)
-      })
+  let userId = await (resolveUserId(req.params.id))
+  let badgeTitle = req.params.badge
+  let badgesGiven = await (credly.request(`/members/${userId}/badges/given`))
+  let resJson = []
+  let users = []
+  badgesGiven
+    .filter(badge => badge.title === badgeTitle)
+    .forEach(badge => {
+      users.push(badge.member)
     })
-  })
+
+  console.log(users)
+
+  let apiPromises = []
+
+  for (let i=0; i<users.length; i++) {
+    console.log(`pushing ${users[i].id}`)
+    apiPromises.push(credly.request(`/members/${users[i].id}/badges`))
+  }
+
+  console.log(apiPromises)
+
+  let badgesOfUsers = await (apiPromises)
+  let data = {users: []}
+  for (let userIndex=0; userIndex<badgesOfUsers.length; userIndex++) {
+    let name = users[userIndex].display_name
+    let badges = badgesOfUsers[userIndex]
+    let ICTInDeWolkenBadges = badges.filter(badge => {
+      return badge.issuer.slug == 'ictindewolken'
+    })
+    data.users.push({name: name, numberOfCoderClassBadges: ICTInDeWolkenBadges.length})
+    console.log(`${name} has ${badges.length} badges, from \
+      with ${ICTInDeWolkenBadges.length} are ICT in de wolken badges`)
+  }
+  data.users.sort((a, b) => b.numberOfCoderClassBadges - a.numberOfCoderClassBadges)
+  res.render('ranking', data)
 
 
   // let userId = await resolveUserId(req.params.id)
@@ -119,6 +119,6 @@ router.get('/:id/:badge', function(req, res, next) {
   //   res.render('index',{user: user})
   // })
 
-})
+}))
 
 module.exports = router
