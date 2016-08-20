@@ -1,0 +1,14 @@
+{
+  "name": "flipjs",
+  "homepage": "https://github.com/GoogleChrome/flipjs",
+  "_release": "a084777ec7",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "a084777ec725ef842dcf91eb2af78635d4d5e783"
+  },
+  "_source": "https://github.com/GoogleChrome/flipjs.git",
+  "_target": "*",
+  "_originalSource": "https://github.com/GoogleChrome/flipjs.git",
+  "_direct": true
+}

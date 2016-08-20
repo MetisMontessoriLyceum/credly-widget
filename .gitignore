@@ -53,3 +53,15 @@ jspm_packages
 
 # Linux trash folder which might appear on any partition or disk
 .Trash-*
+
+### Vim ###
+# swap
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+# session
+Session.vim
+# temporary
+.netrwhist
+*~
+# auto-generated tag files
+tags
