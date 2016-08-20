@@ -1,10 +1,25 @@
 extends widged
 
+block head
+  script(async, defer, src="/components/flipjs/dist/flip.js")
+  script(async, defer, src="/components/gsap/src/minified/easing/EasePack.min.js")
+  script(async, defer, src="/scripts/maor-info.js")
+
 block widged_content
-    header= user.name
-    .badges
-      for badge in user.badges
-        .badge
-          //- img(src='#{badge.image}')
-          header= badge.title
-          p= badge.description
+    header
+      i.fa.fa-arrow-left
+      span= user.name
+      span.type &nbsp;/ badges
+    .container
+      .menu
+        ul
+          li
+            .fa.fa-square
+          li
+            .fa.fa-square-o
+      .badges
+        for badge in user.badges
+          .badge
+            .img(style='background-image: url(#{badge.image});')
+            header= badge.title
+            p= badge.description

@@ -1,0 +1,46 @@
+@import card
+@import badges
+
+.widget
+  margin: 15px
+  height: calc(100vh - 30px)
+  background: #fff
+  border-radius: 2px
+  position: relative
+  overflow: hidden
+
+  display: flex
+  flex-flow: column
+
+  +card-2
+
+  > header
+    position: relative
+    padding: 15px 0
+    font-weight: 500
+    font-size: 14pt
+    z-index: 1
+    +card-1
+
+    .fa
+      width: 55px
+      text-align: center
+
+    span:first-of-type
+      padding-left: 15px
+
+    .type
+      color: gray
+
+  > footer
+    position: relative
+    z-index: 1
+    color: gray
+    padding: 5px
+    +card-1-reverse
+
+    .fa
+      padding: 0 5px
+
+    .container
+      float: right
