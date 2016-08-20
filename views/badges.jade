@@ -3,7 +3,7 @@ extends widged
 block head
   script(async, defer, src="/components/flipjs/dist/flip.js")
   script(async, defer, src="/components/gsap/src/minified/easing/EasePack.min.js")
-  script(async, defer, src="/scripts/maor-info.js")
+  //- script(async, defer, src="/scripts/maor-info.js")
 
 block widged_content
     header
@@ -18,8 +18,11 @@ block widged_content
           li
             .fa.fa-square-o
       .badges
-        for badge in user.badges
-          .badge
-            .img(style='background-image: url(#{badge.image});')
-            header= badge.title
-            p= badge.description
+        if user.badges
+          for badge in user.badges
+            .badge
+              .img(style='background-image: url(#{badge.image});')
+              header= badge.title
+              p= badge.description
+        else
+          .no-badges #{user.name} has no badges jet.

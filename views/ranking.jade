@@ -1,10 +1,13 @@
 extends widged
 
 block widged_content
-    header CoderClass ranking
-    table.ranking
-      for user,index in users
-        tr.user
-          td.rank= index+1
-          td.name= user.name
-          td.amount= user.badgesFromIdentifyingUser.length
+    header 
+      i.fa.fa-arrow-left
+      span CoderClass ranking
+    .container
+      table.ranking
+        for badges,index in badgesOfMembers
+          tr.user
+            td.rank= index+1
+            td.name= badges[0].member.display_name
+            td.amount= badges.length
