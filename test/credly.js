@@ -10,19 +10,24 @@ const proxyquire = require('proxyquire')
 require('../lib/credly')
 
 describe('credly.js', function () {
-  describe('#request', function () {
-    it('should correctly parse json', function () {
+  describe('#resolveUserId', function () {
+    it('should return userId if userId is a string with a number in it', function () {
+      const credly = require('../lib/credly')
+      return credly.resolveUserId('1234').should.eventually.equal(1234)
+    })
+
+    it('should return userId if userId is a number', function () {
+      const credly = require('../lib/credly')
+      return credly.resolveUserId(1234).should.eventually.equal(1234)
+    })
+
+    it('should resolve a slag correctly', function () {
       const credly = proxyquire('../lib/credly', {
         request: function (url, options, callback) {
-          callback(null, {statusCode: 200}, '{"data":{"foo":"bar"}}')
-        },
-        'memory-cache': {
-          get: function () {},
-          put: function () {}
+          callback(null, {statusCode: 200}, '{"data":{"id":1234}}')
         }
       })
-
-      return credly.request('/foo').should.eventually.deep.equal({foo: 'bar'})
+      return credly.resolveUserId('foo').should.eventually.equal(1234)
     })
 
     it('should reject when request fails', function () {
@@ -36,13 +41,17 @@ describe('credly.js', function () {
           put: function () {}
         }
       })
-      return credly.request('/foo').should.be.rejectedWith(error)
+      return credly.resolveUserId('foo').should.be.rejectedWith(error)
     })
+  })
 
-    it('should reject on error status code', function () {
+  describe('#getUserBadges', function () {
+    it('should put the display_name in the name property', function () {
       const credly = proxyquire('../lib/credly', {
         request: function (url, options, callback) {
-          callback(null, {statusCode: 404, statusMessage: 'Not Found'})
+          callback(null, {statusCode: 200}, `{"data": {
+            "display_name":"Mr. Foo"
+          }}`)
         },
         'memory-cache': {
           get: function () {},
@@ -50,7 +59,62 @@ describe('credly.js', function () {
         }
       })
 
-      return credly.request('/foo').should.be.rejected
+      return credly.getUserBadges(1234)
+          .should.eventually.have.property('name').and.equal('Mr. Foo')
+    })
+
+    it('should get the badges', function () {
+      const credly = proxyquire('../lib/credly', {
+        request: function (url, options, callback) {
+          if (url === 'https://api.credly.com/v1.1/members/1234') {
+            callback(null, {statusCode: 200}, `{"data": {
+              "display_name":"Mr. Foo"
+            }}`)
+          } else {
+            callback(null, {statusCode: 200}, `{"data": {
+              "foo": "bar",
+              "baz": "foo"
+            }}`)
+          }
+        },
+        'memory-cache': {
+          get: function () {},
+          put: function () {}
+        }
+      })
+
+      return credly.getUserBadges(1234).should.eventually
+          .have.property('badges').and.deep.equal({foo: 'bar', baz: 'foo'})
+    })
+
+    it('should reject when request fails', function () {
+      const error = new Error('Something went wrong.')
+      const credly = proxyquire('../lib/credly', {
+        request: function (url, options, callback) {
+          callback(error)
+        },
+        'memory-cache': {
+          get: function () {},
+          put: function () {}
+        }
+      })
+      return credly.getUserBadges(1234).should.be.rejectedWith(error)
+    })
+  })
+
+  describe('#request', function () {
+    it('should correctly parse json', function () {
+      const credly = proxyquire('../lib/credly', {
+        request: function (url, options, callback) {
+          callback(null, {statusCode: 200}, '{"data":{"foo":"bar"}}')
+        },
+        'memory-cache': {
+          get: function () {},
+          put: function () {}
+        }
+      })
+
+      return credly.request('/foo').should.eventually.deep.equal({foo: 'bar'})
     })
 
     it('should resolve the second time under 20ms', function (done) {
@@ -80,6 +144,34 @@ describe('credly.js', function () {
           done(new Error(`the second request took ${endTime - startTime}ms`))
         }
       })
+    })
+
+    it('should reject when request fails', function () {
+      const error = new Error('Something went wrong.')
+      const credly = proxyquire('../lib/credly', {
+        request: function (url, options, callback) {
+          callback(error)
+        },
+        'memory-cache': {
+          get: function () {},
+          put: function () {}
+        }
+      })
+      return credly.request('/foo').should.be.rejectedWith(error)
+    })
+
+    it('should reject on error status code', function () {
+      const credly = proxyquire('../lib/credly', {
+        request: function (url, options, callback) {
+          callback(null, {statusCode: 404, statusMessage: 'Not Found'})
+        },
+        'memory-cache': {
+          get: function () {},
+          put: function () {}
+        }
+      })
+
+      return credly.request('/foo').should.be.rejected
     })
   })
 })
