@@ -1,0 +1,98 @@
+body {
+  margin: 0;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.widget {
+  border: 1px solid #e5e5e5;
+  border-radius: 2px;
+  color: #333;
+}
+.widget > header {
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #e5e5e5;
+  font-weight: 600;
+  font-size: 1.5em;
+}
+
+.widget > header, .badges {
+  padding: 15px;
+}
+
+.badges {
+  display: flex;
+  overflow-x: auto;
+  padding-bottom: 5px;
+}
+
+.badge {
+  flex: 0 0 230px;
+  word-wrap: break-word;
+  padding-right: 7.5px;
+  padding-left: 7.5px;
+  border-right: 1px solid #e5e5e5;
+}
+
+.badge img {
+  width: 100%;
+}
+
+.badge header {
+  font-weight: 600;
+  font-size: 1.15em;
+  margin-top: 5px;
+}
+
+.badge p {
+  margin-top: 5px;
+}
+
+.badge:first-child {
+  padding-left: 0;
+}
+.badge:last-child {
+  border-right: 0;
+}
+
+footer {
+  display: flex;
+  margin: 10px;
+  color: #bbb;
+}
+
+footer .fa {
+  padding: 0 5px;
+}
+
+.grow {
+  flex-grow: 1;
+}
+
+.ranking {
+  margin: 10px;
+}
+.ranking .user > * {;
+  padding: 10px;
+  padding-right: 5px;
+  border-bottom: 1px dashed #e5e5e5;
+}
+
+.ranking .name {
+  width: 100%;
+}
+
+.ranking .user:last-child > * {
+  border-bottom: 0;
+}
+
+.ranking .rank {
+  font-weight: bold;
+}
+
+.ranking .rank:before {
+  content: "#";
+}
