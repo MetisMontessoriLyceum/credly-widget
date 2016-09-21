@@ -7,22 +7,16 @@ block head
 
 block widged_content
     header
-      i.fa.fa-arrow-left
       span= user.name
       span.type &nbsp;/ badges
     .container
-      .menu
-        ul
-          li
-            .fa.fa-square
-          li
-            .fa.fa-square-o
       .badges
         if user.badges
           for badge in user.badges
             .badge
+              .shadow
               .img(style='background-image: url(#{badge.image});')
-              header= badge.title
+              header !{badge.title}
               p= badge.description
         else
           .no-badges #{user.name} has no badges jet.

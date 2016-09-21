@@ -30,18 +30,33 @@
 
     .badge
       +card-1
-      +card-1-hover
+      // box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24), inset 0 1px 2px rgba(0,0,0,0.24)
       margin: 7.5px
       width: 250px
       padding: 15px
       background-color: #FFF
-      cursor: pointer
+      // cursor: pointer
+      height: 400px
+      overflow: hidden
+      position: relative
+
+      .shadow
+        box-shadow: inset 0px -98px 100px -33px white
+        height: 400px
+        width: 250px
+        padding: 15px
+        z-index: 100
+        position: absolute
+        top: 0
+        left: 0
+        pointer-events: none
 
       .img
-        height: 250px
+        height: 150px
         background-repeat: no-repeat
         background-position: center
         background-size: contain
+        margin-bottom: 30px
 
     &.has-maor-info
       overflow-y: hidden

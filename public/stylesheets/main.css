@@ -24,19 +24,29 @@
     transform: translate(0, 0); }
     .widget .container .badges .badge {
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-      transition: box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
       margin: 7.5px;
       width: 250px;
       padding: 15px;
       background-color: #FFF;
-      cursor: pointer; }
-      .widget .container .badges .badge:hover, .widget .container .badges .badge:focus {
-        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22); }
+      height: 400px;
+      overflow: hidden;
+      position: relative; }
+      .widget .container .badges .badge .shadow {
+        box-shadow: inset 0px -98px 100px -33px white;
+        height: 400px;
+        width: 250px;
+        padding: 15px;
+        z-index: 100;
+        position: absolute;
+        top: 0;
+        left: 0;
+        pointer-events: none; }
       .widget .container .badges .badge .img {
-        height: 250px;
+        height: 150px;
         background-repeat: no-repeat;
         background-position: center;
-        background-size: contain; }
+        background-size: contain;
+        margin-bottom: 30px; }
     .widget .container .badges.has-maor-info {
       overflow-y: hidden; }
     .widget .container .badges .badge.maor-info {

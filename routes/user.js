@@ -3,7 +3,7 @@ const router = express.Router()
 const credly = require('../lib/credly')
 
 router.get('/:id', function (req, res, next) {
-  credly.getUserBadges(req.params.id)
+  credly.getUserBadges(req.params.id, req.query.noCache == null)
     .then(user => {
       res.render('badges', {user})
     })

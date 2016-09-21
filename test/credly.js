@@ -146,6 +146,19 @@ describe('credly.js', function () {
       })
     })
 
+    it('should reject on invalid json', function () {
+      const credly = proxyquire('../lib/credly', {
+        request: function (url, options, callback) {
+          callback(null, {statusCode: 200}, `hi there!`)
+        },
+        'memory-cache': {
+          get: function () {},
+          put: function () {}
+        }
+      })
+      return credly.request('/foo').should.be.rejected
+    })
+
     it('should reject when request fails', function () {
       const error = new Error('Something went wrong.')
       const credly = proxyquire('../lib/credly', {
