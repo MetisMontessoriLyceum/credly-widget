@@ -49,9 +49,17 @@ describe('credly.js', function () {
     it('should put the display_name in the name property', function () {
       const credly = proxyquire('../lib/credly', {
         request: function (url, options, callback) {
-          callback(null, {statusCode: 200}, `{"data": {
-            "display_name":"Mr. Foo"
-          }}`)
+          if (url === 'https://api.credly.com/v1.1/members/1234') {
+            callback(null, {statusCode: 200}, `{"data": {
+              "display_name":"Mr. Foo"
+            }}`)
+          } else {
+            callback(null, {statusCode: 200}, `{"data": [{
+              "image": "foo.bar.baz.boz.hi",
+              "title": "hi",
+              "description": "there"
+            }]}`)
+          }
         },
         'memory-cache': {
           get: function () {},
@@ -71,10 +79,11 @@ describe('credly.js', function () {
               "display_name":"Mr. Foo"
             }}`)
           } else {
-            callback(null, {statusCode: 200}, `{"data": {
-              "foo": "bar",
-              "baz": "foo"
-            }}`)
+            callback(null, {statusCode: 200}, `{"data": [{
+              "image": "foo.bar.baz.boz.hi",
+              "title": "hi",
+              "description": "there"
+            }]}`)
           }
         },
         'memory-cache': {
@@ -84,7 +93,11 @@ describe('credly.js', function () {
       })
 
       return credly.getUserBadges(1234).should.eventually
-          .have.property('badges').and.deep.equal({foo: 'bar', baz: 'foo'})
+          .have.property('badges').and.deep.equal([{
+            "image": "foo.bar.baz.boz_13.hi",
+            "title": "hi",
+            "description": "there"
+          }])
     })
 
     it('should reject when request fails', function () {
