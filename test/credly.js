@@ -1,4 +1,6 @@
 /* global describe it */
+'use strict'
+
 const chai = require('chai')
 const chaiAsPromised = require('chai-as-promised')
 chai.use(chaiAsPromised)
@@ -93,11 +95,11 @@ describe('credly.js', function () {
       })
 
       return credly.getUserBadges(1234).should.eventually
-          .have.property('badges').and.deep.equal([{
-            "image": "foo.bar.baz.boz_13.hi",
-            "title": "hi",
-            "description": "there"
-          }])
+        .have.property('badges').and.deep.equal([{
+          image: 'foo.bar.baz.boz_13.hi',
+          title: 'hi',
+          description: 'there'
+        }])
     })
 
     it('should reject when request fails', function () {
@@ -155,6 +157,35 @@ describe('credly.js', function () {
           done()
         } else {
           done(new Error(`the second request took ${endTime - startTime}ms`))
+        }
+      })
+    })
+
+    it('should not cache when shouldCache is false', function (done) {
+      const credly = proxyquire('../lib/credly', {
+        request: function (url, options, callback) {
+          setTimeout(function () {
+            callback(null, {statusCode: 200}, '{"data":{"foo":"bar"}}')
+          }, 50)
+        }
+      })
+
+      this.slow('300ms')
+      let startTime, endTime
+
+      credly.request('/foo', false)
+      .then(function () {
+        startTime = new Date().getTime()
+
+        return credly.request('/foo', false)
+      })
+      .then(function () {
+        endTime = new Date().getTime()
+
+        if (endTime - startTime < 20) {
+          done(new Error(`the second request took ${endTime - startTime}ms`))
+        } else {
+          done()
         }
       })
     })
