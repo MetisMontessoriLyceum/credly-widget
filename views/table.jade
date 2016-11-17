@@ -1,0 +1,22 @@
+extends widged
+
+block widged_content
+    header
+      span CoderClass
+      span.type &nbsp;/ badges
+    .container
+      .badges
+        table
+          tr.title
+            td name
+            each badge in badges
+              td
+                img(src="#{badge.image_url}", title="#{badge.title}" alt="#{badge.title}")
+          each row in rows
+            tr
+              td= row.name
+              each hasBadge in row.hasBadges
+                if hasBadge
+                  td.hasBadge 1
+                else
+                  td.doesntHaveBadge 0
