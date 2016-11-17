@@ -63,10 +63,10 @@ table img {
   width: 90px;
   mix-blend-mode: multiply; }
 
-table .hasBage, table .hasNoBadge {
+table .hasBadge, table .doesntHaveBadge {
   text-align: center; }
 
-table .hasBage {
+table .hasBadge {
   font-weight: bold; }
 
 table td {
