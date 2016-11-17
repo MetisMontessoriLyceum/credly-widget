@@ -59,6 +59,20 @@
       width: 100%;
       height: 100%; }
 
+table img {
+  width: 90px;
+  mix-blend-mode: multiply; }
+
+table .hasBage, table .hasNoBadge {
+  text-align: center; }
+
+table .hasBage {
+  font-weight: bold; }
+
+table td {
+  padding: 0 8px;
+  border-bottom: 1px dashed lightgray; }
+
 .widget {
   margin: 15px;
   height: calc(100vh - 30px);
