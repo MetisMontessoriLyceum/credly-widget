@@ -5,6 +5,7 @@
 
 1. install [nodejs](https://nodejs.org/en/download/package-manager/), v6 recommended, v4+ supported.
 2. run `npm run setup` to install the npm and bower dependencies
+3. replace `/credly_options.json` with the file that I gave you.
 3. run `npm start` to run the server, or keep `npm run dev` running in the
     background while developing.
 
