@@ -3,10 +3,7 @@
 
 ## Setup
 
-1. install [nodejs](https://nodejs.org/en/download/package-manager/), v6.
-    (hint, use nvm)
+1. install [nodejs](https://nodejs.org/en/download/package-manager/), v6 recommended, v4+ supported.
 2. run `npm run setup` to install the npm and bower dependencies
 3. run `npm start` to run the server, or keep `npm run dev` running in the
     background while developing.
-
-to run the server in the background, use [forever](http://stackoverflow.com/a/12949606/3624196).
