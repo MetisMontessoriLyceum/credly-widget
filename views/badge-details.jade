@@ -1,0 +1,16 @@
+extends widged
+
+block widged_content
+    header
+      span= badge.name
+      span.type &nbsp;/ given
+    .container
+      .badges.given
+        if badge.given
+          for givenBadge in badge.given
+            .badge
+              .shadow
+              .img(style='background-image: url(#{givenBadge.member.avatar});')
+              header !{givenBadge.member.display_name}
+        else
+          .no-badges Nobody has this badge jet.
