@@ -6,6 +6,7 @@ const bodyParser = require('body-parser')
 
 const user = require('./routes/user')
 const table = require('./routes/table')
+const badgeDetails = require('./routes/badge-details')
 
 const app = express()
 
@@ -21,6 +22,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/user', user)
 app.use('/table', table)
+app.use('/badge-details', badgeDetails)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
