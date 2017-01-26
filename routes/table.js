@@ -50,9 +50,9 @@ router.get('/:issuerId/:badgeId', ty.async(function* (req, res, err) {
 
     const promises = [
       // issuerCreatedBadges
-      credly.request(`/members/${issuerId}/badges/created?per_page=100`),
+      credly.request(`/members/${issuerId}/badges/created?per_page=10000`),
       // issuerGivenBadges
-      credly.request(`/members/${issuerId}/badges/given?per_page=100`)
+      credly.request(`/members/${issuerId}/badges/given?per_page=10000`)
     ]
 
     Promise.all(promises).then(ty.async(function* (apiRes) {
