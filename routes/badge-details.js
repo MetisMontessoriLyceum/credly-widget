@@ -14,8 +14,6 @@ router.get('/:issuerId/:badgeId', ty.async(function* (req, res, err) {
       (yield credly.request(`/members/${issuerId}/badges/given?per_page=100`))
       .filter(badge => badge.badge_id.toString() === badgeId)
 
-  console.log(badgesGiven.length)
-
   if (badgesGiven.length === 0) {
     res.render('badge-details', { badge: { name: 'Unknown' } })
     return

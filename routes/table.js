@@ -59,7 +59,6 @@ router.get('/:issuerId/:badgeId', ty.async(function* (req, res, err) {
       const issuerCreatedBadges =
           orderCreatedBadges(apiRes[0], req.params.badgeId)
           .map(credly.fixImageOfBadge)
-      console.log(issuerCreatedBadges)
       const issuerGivenBadges = apiRes[1]
 
       const givenMasterBadges = issuerGivenBadges
