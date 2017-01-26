@@ -1,4 +1,4 @@
-# CoderClass Ranking
+# Credly Widget
 [![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/) [![Travis](https://img.shields.io/travis/nloomans/coderclass-ranking.svg?maxAge=2592000)](https://travis-ci.org/nloomans/coderclass-ranking)
 
 ## Setup
