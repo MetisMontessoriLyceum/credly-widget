@@ -75,13 +75,16 @@ router.get('/:issuerId/:badgeId', ty.async(function* (req, res, err) {
       }
 
       issuerCreatedBadges.forEach((issuerCreatedBadge, createdBadgeIndex) => {
-        badgesOfMembersWithMasterBadge.forEach((badgesOfMember, badgesOfMemberIndex) => {
+        badgesOfMembersWithMasterBadge.forEach((badgesOfMember,
+                                                badgesOfMemberIndex) => {
           const matchingBadges = badgesOfMember.filter(badge =>
             badge.badge_id === issuerCreatedBadge.id)
           if (matchingBadges.length > 0) {
-            returnObj.rows[badgesOfMemberIndex].hasBadges[createdBadgeIndex] = true
+            returnObj.rows[badgesOfMemberIndex]
+                .hasBadges[createdBadgeIndex] = true
           } else {
-            returnObj.rows[badgesOfMemberIndex].hasBadges[createdBadgeIndex] = false
+            returnObj.rows[badgesOfMemberIndex]
+                .hasBadges[createdBadgeIndex] = false
           }
         })
       })
