@@ -5,9 +5,22 @@
 
 1. install [nodejs](https://nodejs.org/en/download/package-manager/), v6 recommended, v4+ supported.
 2. run `npm run setup` to install the npm and bower dependencies
-3. replace `/credly_options.json` with the file that I gave you.
+3. add `/credly_options.json` to the repository
 3. run `npm start` to run the server, or keep `npm run dev` running in the
     background while developing.
+
+### Adding `/credly_options.json`
+
+The `/credly_options.json` file should look like this:
+
+```json
+{
+  "headers": {
+    "x-api-key": "<YOUR API KEY HERE>",
+    "x-api-secret": "<YOUR API SECRET HERE>"
+  }
+}
+```
 
 ## Documentation
 
@@ -15,13 +28,13 @@
 
  - **url**: `/user/$userId/`
  - **$userId**: The ID of the user
- 
+
 ### Display a table of who has earned what
 
  - **url**: `/table/$issuerId/$badgeId`
  - **$issuerId**: The id of the user that created the master badge
  - **$badgeId**: The id of the master badge itself
- 
+
 The master badge is a badge that everyone has.
 
 ### Display users that earned a specific badge
