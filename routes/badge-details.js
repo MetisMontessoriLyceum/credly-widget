@@ -11,7 +11,7 @@ router.get('/:issuerId/:badgeId', ty.async(function* (req, res, err) {
   // example badgeId: 99999 // yes, we actualy got this id by pure luck.
 
   const badgesGiven =
-      (yield credly.request(`/members/${issuerId}/badges/given?per_page=100`))
+      (yield credly.request(`/members/${issuerId}/badges/given?per_page=10000`))
       .filter(badge => badge.badge_id.toString() === badgeId)
 
   if (badgesGiven.length === 0) {
