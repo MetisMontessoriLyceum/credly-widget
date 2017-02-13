@@ -50,16 +50,15 @@ router.get('/:issuerId/:badgeId', ty.async(function* (req, res, err) {
 
     const promises = [
       // issuerCreatedBadges
-      credly.request(`/members/${issuerId}/badges/created?per_page=100`),
+      credly.request(`/members/${issuerId}/badges/created?per_page=10000`),
       // issuerGivenBadges
-      credly.request(`/members/${issuerId}/badges/given?per_page=100`)
+      credly.request(`/members/${issuerId}/badges/given?per_page=10000`)
     ]
 
     Promise.all(promises).then(ty.async(function* (apiRes) {
       const issuerCreatedBadges =
           orderCreatedBadges(apiRes[0], req.params.badgeId)
           .map(credly.fixImageOfBadge)
-      console.log(issuerCreatedBadges)
       const issuerGivenBadges = apiRes[1]
 
       const givenMasterBadges = issuerGivenBadges
@@ -76,13 +75,16 @@ router.get('/:issuerId/:badgeId', ty.async(function* (req, res, err) {
       }
 
       issuerCreatedBadges.forEach((issuerCreatedBadge, createdBadgeIndex) => {
-        badgesOfMembersWithMasterBadge.forEach((badgesOfMember, badgesOfMemberIndex) => {
+        badgesOfMembersWithMasterBadge.forEach((badgesOfMember,
+                                                badgesOfMemberIndex) => {
           const matchingBadges = badgesOfMember.filter(badge =>
             badge.badge_id === issuerCreatedBadge.id)
           if (matchingBadges.length > 0) {
-            returnObj.rows[badgesOfMemberIndex].hasBadges[createdBadgeIndex] = true
+            returnObj.rows[badgesOfMemberIndex]
+                .hasBadges[createdBadgeIndex] = true
           } else {
-            returnObj.rows[badgesOfMemberIndex].hasBadges[createdBadgeIndex] = false
+            returnObj.rows[badgesOfMemberIndex]
+                .hasBadges[createdBadgeIndex] = false
           }
         })
       })
