@@ -5,7 +5,7 @@ const credly = require('../lib/credly')
 router.get('/:id', function (req, res, next) {
   credly.getUserBadges(req.params.id, req.query.noCache == null)
     .then(user => {
-      res.json({ user })
+      res.json(user)
     })
     .catch(err => {
       res.render('error', {

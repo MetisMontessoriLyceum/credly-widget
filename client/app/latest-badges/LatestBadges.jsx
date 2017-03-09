@@ -1,5 +1,6 @@
 import React from 'react'
-import LatestBadge from './latest-badge.jsx'
+import LatestBadge from './LatestBadge.jsx'
+import parseBadgeTitle from '../helpers/parseBadgeTitle.jsx'
 
 export default class LatestBadges extends React.Component {
   constructor (props) {
@@ -11,9 +12,6 @@ export default class LatestBadges extends React.Component {
         console.log(badges)
       })
   }
-  _parseTitle (title) {
-    return title.replace('&#8211;', '-')
-  }
   render () {
     if (this.state.badges) {
       return (
@@ -23,7 +21,7 @@ export default class LatestBadges extends React.Component {
               <LatestBadge
                 key={badge.id}
                 name={badge.member.display_name}
-                title={this._parseTitle(badge.title)} />
+                title={parseBadgeTitle(badge.title)} />
             )
           })}
         </marquee>
