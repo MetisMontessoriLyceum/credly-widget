@@ -3,18 +3,20 @@ import { render } from 'react-dom'
 import LatestBadges from './latest-badges/LatestBadges.jsx'
 import User from './user/User.jsx'
 
+const args = document.currentScript.dataset
+
 // dynamicly create the app root before the script tag
-const appRoot = document.currentScript.parentNode.insertBefore(
-                    document.createElement('div'),
-                    document.currentScript)
+const div = document.createElement('div')
+div.className = `credly__${args.type}`
+
+const appRoot = document.currentScript.parentNode
+  .insertBefore(div, document.currentScript)
 
 // dynamicly add the font tag to the header
 const link = document.createElement('link')
 link.href = 'https://fonts.googleapis.com/css?family=Roboto+Mono:400,500'
 link.rel = 'stylesheet'
 document.head.appendChild(link)
-
-const args = document.currentScript.dataset
 
 switch (args.type) {
   case 'latest-badges':
