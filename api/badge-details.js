@@ -24,7 +24,7 @@ router.get('/:issuerId/:badgeId', ty.async(function* (req, res, err) {
     given: badgesGiven
   }
 
-  res.render('badge-details', { badge })
+  res.json({ badge })
 }))
 
 module.exports = router

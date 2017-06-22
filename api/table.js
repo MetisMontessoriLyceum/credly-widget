@@ -89,7 +89,7 @@ router.get('/:issuerId/:badgeId', ty.async(function* (req, res, err) {
         })
       })
       // res.json(returnObj)
-      res.render('table', returnObj)
+      res.json(returnObj)
     }))
   } catch (e) {
     err(e)
