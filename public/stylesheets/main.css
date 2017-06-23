@@ -74,7 +74,7 @@ table .hasBadge {
 
 table td {
   padding: 0 8px;
-  border-bottom: 1px dashed lightgray; }
+  border-bottom: 1px dashed gray; }
 
 .widget {
   margin: 15px;
@@ -123,3 +123,6 @@ header {
 
 .grow {
   flex-grow: 1; }
+
+.stock-page {
+  margin: 16px; }
