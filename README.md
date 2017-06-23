@@ -29,6 +29,8 @@ The `/credly_options.json` file should look like this:
  - **url**: `/user/$userId/`
  - **$userId**: The ID of the user
 
+[View example](https://credly.noahloomans.com/user/2193255)
+
 ### Display a table of who has earned what
 
  - **url**: `/table/$issuerId/$badgeId`
@@ -37,8 +39,12 @@ The `/credly_options.json` file should look like this:
 
 The master badge is a badge that everyone has.
 
+[View example](https://credly.noahloomans.com/table/2221531/86319)
+
 ### Display users that earned a specific badge
 
  - **url**: `/badge-details/$issuerId/$badgeId`
  - **$issuerId**: The id of the user that created the badge
  - **$badgeId**: The id of the badge itself
+
+[View example](https://credly.noahloomans.com/badge-details/2221531/99999)
