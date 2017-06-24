@@ -1,6 +1,10 @@
 credly_options.json
 client/public/components
 
+# Added to prevent git from complaining about these files when checking out form
+# master.
+public/components
+
 # Created by https://www.gitignore.io/api/node,linux
 
 ### Node ###
