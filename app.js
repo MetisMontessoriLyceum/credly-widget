@@ -4,6 +4,9 @@ const logger = require('morgan')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 
+const webpackMiddleware = require('webpack-dev-middleware')
+const webpack = require('webpack')
+
 const user = require('./api/user')
 const table = require('./api/table')
 const badgeDetails = require('./api/badge-details')
@@ -15,7 +18,15 @@ app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
+
 app.use(express.static(path.join(__dirname, 'client/public')))
+
+if (process.env.DEV_WEBPACK) {
+  app.use(webpackMiddleware(webpack(require('./webpack.config.js')), {
+    publicPath: '/',
+    noInfo: true
+  }))
+}
 
 app.use('/api/user', user)
 app.use('/api/table', table)

@@ -9,7 +9,7 @@ let node
 const paths = {
   javascript: {
     server: ['./bin/www', './app.js', './lib/**/*.js', './routes/**/*.js'],
-    client: ['./public/scripts/**/*.js']
+    client: ['./client/app/**/*.js', './client/app/**/*.jsx']
   },
   sass: ['./public/stylesheets/**/*.sass']
 }
@@ -27,7 +27,9 @@ function killNode () {
 
 gulp.task('server', function () {
   return killNode().then(function () {
-    node = spawn('node', [`./bin/www`], {stdio: 'inherit'})
+    const env = Object.create(process.env)
+    env.DEV_WEBPACK = 1
+    node = spawn('node', [`./bin/www`], {stdio: 'inherit', env})
   })
 })
 

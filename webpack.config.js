@@ -3,7 +3,7 @@ const path = require('path')
 const BUILD_DIR = path.resolve(__dirname, 'client/public')
 const APP_DIR = path.resolve(__dirname, 'client/app')
 
-var config = {
+const config = {
   entry: APP_DIR + '/app.jsx',
   output: {
     path: BUILD_DIR,
@@ -18,7 +18,6 @@ var config = {
       }
     ]
   }
-
 }
 
 module.exports = config
