@@ -2,7 +2,7 @@ import React from 'react'
 import Radium from 'radium'
 
 import Container from '../ui/Container.jsx'
-import Header from '../ui/Header.jsx'
+import Header from '../ui/UserHeader.jsx'
 import Badges from '../ui/Badges.jsx'
 import Footer from '../ui/Footer.jsx'
 import Spinner from '../ui/Spinner.jsx'
@@ -22,7 +22,7 @@ class User extends React.Component {
     if (this.state.user) {
       return (
         <Container>
-          <Header title={this.state.user.name} />
+          <Header user={this.state.user.user} />
           <Badges badges={this.state.user.badges} />
           <Footer />
         </Container>
