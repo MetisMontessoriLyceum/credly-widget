@@ -1,5 +1,7 @@
 import React from 'react'
 
+import fixImageURL from '../helpers/fixImageURL.jsx'
+
 export default class User extends React.Component {
   render () {
     const WIDTH = 240
@@ -17,7 +19,7 @@ export default class User extends React.Component {
         overflow: 'hidden',
         padding: 16
       }}>
-        <img src={this.props.image} style={{
+        <img src={fixImageURL(this.props.image)} style={{
           display: 'block',
           margin: '0 auto'
         }} />
