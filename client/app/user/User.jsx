@@ -1,10 +1,13 @@
 import React from 'react'
+import Radium from 'radium'
+
 import Container from '../ui/Container.jsx'
 import Header from '../ui/Header.jsx'
 import Badges from '../ui/Badges.jsx'
 import Footer from '../ui/Footer.jsx'
+import Spinner from '../ui/Spinner.jsx'
 
-export default class User extends React.Component {
+class User extends React.Component {
   constructor (props) {
     super(props)
     this.state = {}
@@ -26,8 +29,22 @@ export default class User extends React.Component {
       )
     } else {
       return (
-        <div>Loading...</div>
+        <Container style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          padding: '128px'
+        }}>
+          <img src='/assets/metis.svg' style={{
+            filter: 'grayscale(100%)',
+            height: 200,
+            marginBottom: '32px'
+          }} />
+          <Spinner />
+        </Container>
       )
     }
   }
 }
+
+export default Radium(User)

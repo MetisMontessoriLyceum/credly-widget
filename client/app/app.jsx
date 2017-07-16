@@ -14,7 +14,7 @@ const appRoot = document.currentScript.parentNode
 
 // dynamicly add the font tag to the header
 const link = document.createElement('link')
-link.href = 'https://fonts.googleapis.com/css?family=Roboto+Mono:400,500'
+link.href = 'https://fonts.googleapis.com/css?family=Roboto:400,500|Roboto+Mono:400,500'
 link.rel = 'stylesheet'
 document.head.appendChild(link)
 
