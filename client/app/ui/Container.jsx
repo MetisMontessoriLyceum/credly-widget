@@ -1,5 +1,5 @@
 import React from 'react'
-import {StyleRoot} from 'radium'
+import { StyleRoot } from 'radium'
 
 export default class User extends React.Component {
   render () {

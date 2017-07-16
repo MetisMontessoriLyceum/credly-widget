@@ -1,5 +1,6 @@
 import React from 'react'
 import Radium from 'radium'
+import { fetch, SCRIPT_HOST } from '../helpers/crossURL.jsx'
 
 import Container from '../ui/Container.jsx'
 import Header from '../ui/UserHeader.jsx'
@@ -11,7 +12,7 @@ class User extends React.Component {
   constructor (props) {
     super(props)
     this.state = {}
-    window.fetch(`/api/user/${this.props.id}`).then(r => r.json())
+    fetch(`/api/user/${this.props.id}`).then(r => r.json())
       .then(user => {
         console.log(user)
         console.log(this)
@@ -35,7 +36,7 @@ class User extends React.Component {
           alignItems: 'center',
           padding: '128px'
         }}>
-          <img src='/assets/metis.svg' style={{
+          <img src={`${SCRIPT_HOST}/assets/metis.svg`} style={{
             filter: 'grayscale(100%)',
             height: 200,
             marginBottom: '32px'
