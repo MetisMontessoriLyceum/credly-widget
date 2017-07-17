@@ -14,6 +14,7 @@ export default class User extends React.Component {
             title={badge.title}
             image={badge.image}
             description={badge.description}
+            link={badge.links.member_badge}
           />)
         })}
       </div>
