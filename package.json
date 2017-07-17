@@ -8,8 +8,7 @@
     "lint": "standard ./bin/www ./app.js ./lib/**/*.js ./routes/**/*.js",
     "setup": "npm install && bower install",
     "dev": "gulp",
-    "jsx-build": "webpack -d",
-    "jsx-watch": "webpack -d --watch"
+    "build": "webpack -p"
   },
   "dependencies": {
     "babel-core": "^6.23.1",
