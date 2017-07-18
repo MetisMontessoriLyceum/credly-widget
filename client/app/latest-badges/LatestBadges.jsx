@@ -3,6 +3,8 @@ import { fetch } from '../helpers/crossURL.jsx'
 
 import LatestBadge from './LatestBadge.jsx'
 
+const debug = require('debug')('credly-widget:component:LatestBadges')
+
 export default class LatestBadges extends React.Component {
   constructor (props) {
     super(props)
@@ -10,7 +12,7 @@ export default class LatestBadges extends React.Component {
     fetch(`/api/latest-badges/${this.props.issuerId}`)
       .then(r => r.json()).then(badges => {
         this.setState({ badges })
-        console.log(badges)
+        debug(badges)
       })
   }
   render () {

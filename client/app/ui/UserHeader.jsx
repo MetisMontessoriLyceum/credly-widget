@@ -4,7 +4,6 @@ import { parseImageURL, parseText } from '../helpers/fixer.jsx'
 
 export default class Header extends React.Component {
   render () {
-    console.log(this.props.user.avatar)
     return (
       <div style={{
         display: 'flex',

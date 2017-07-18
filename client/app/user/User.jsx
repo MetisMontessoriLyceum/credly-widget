@@ -8,14 +8,15 @@ import Badges from '../ui/Badges.jsx'
 import Footer from '../ui/Footer.jsx'
 import Spinner from '../ui/Spinner.jsx'
 
+const debug = require('debug')('credly-widget:component:User')
+
 class User extends React.Component {
   constructor (props) {
     super(props)
     this.state = {}
     fetch(`/api/user/${this.props.id}`).then(r => r.json())
       .then(user => {
-        console.log(user)
-        console.log(this)
+        debug(user)
         this.setState({ user })
       })
   }
