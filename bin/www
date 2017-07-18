@@ -5,7 +5,7 @@
  */
 
 const app = require('../app')
-const debug = require('debug')('coderclass-ranking:server')
+const debug = require('debug')('credly-widget:server')
 const http = require('http')
 
 /**

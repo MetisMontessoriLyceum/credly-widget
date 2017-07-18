@@ -1,5 +1,5 @@
 {
-  "name": "coderclass-ranking",
+  "name": "credly-widget",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -7,7 +7,7 @@
     "test": "mocha",
     "lint": "standard ./bin/www ./app.js ./lib/**/*.js ./routes/**/*.js",
     "setup": "npm install && bower install",
-    "dev": "gulp",
+    "dev": "DEBUG=\"credly-widget:*\" gulp",
     "build": "webpack -p"
   },
   "dependencies": {
