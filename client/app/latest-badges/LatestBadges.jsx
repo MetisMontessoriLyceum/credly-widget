@@ -2,7 +2,6 @@ import React from 'react'
 import { fetch } from '../helpers/crossURL.jsx'
 
 import LatestBadge from './LatestBadge.jsx'
-import parseBadgeTitle from '../helpers/parseBadgeTitle.jsx'
 
 export default class LatestBadges extends React.Component {
   constructor (props) {
@@ -23,7 +22,7 @@ export default class LatestBadges extends React.Component {
               <LatestBadge
                 key={badge.id}
                 name={badge.member.display_name}
-                title={parseBadgeTitle(badge.title)} />
+                title={badge.title} />
             )
           })}
         </marquee>

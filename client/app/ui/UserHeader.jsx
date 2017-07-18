@@ -1,6 +1,6 @@
 import React from 'react'
 
-import fixImageURL from '../helpers/fixImageURL.jsx'
+import { parseImageURL, parseText } from '../helpers/fixer.jsx'
 
 export default class Header extends React.Component {
   render () {
@@ -11,7 +11,7 @@ export default class Header extends React.Component {
         alignItems: 'center',
         margin: 8
       }}>
-        <img src={fixImageURL(this.props.user.avatar)} style={{
+        <img src={parseImageURL(this.props.user.avatar)} style={{
           width: 40,
           height: 40,
           borderRadius: '50%',
@@ -22,7 +22,7 @@ export default class Header extends React.Component {
           fontSize: '1.5em',
           fontWeight: '300'
         }}>
-          {this.props.user.display_name}
+          {parseText(this.props.user.display_name)}
         </div>
       </div>
     )

@@ -1,7 +1,7 @@
 import React from 'react'
 import Radium from 'radium'
 
-import fixImageURL from '../helpers/fixImageURL.jsx'
+import { parseImageURL, parseText } from '../helpers/fixer.jsx'
 
 class User extends React.Component {
 
@@ -10,11 +10,11 @@ class User extends React.Component {
 
     const children = (
       <div>
-        <img src={fixImageURL(this.props.image)} style={styles.image} />
+        <img src={parseImageURL(this.props.image)} style={styles.image} />
         <div style={styles.title}>
-          {this.props.title}
+          {parseText(this.props.title)}
         </div>
-        <div>{this.props.description}</div>
+        <div>{parseText(this.props.description)}</div>
 
         {/* Shadow */}
         <div style={styles.shadow} />
