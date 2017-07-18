@@ -3,8 +3,13 @@ import Radium from 'radium'
 
 import Badge from './Badge.jsx'
 
+const debug = require('debug')('credly-widget:component:Badges')
+
 class Badges extends React.Component {
   render () {
+    const isInIframe = window.self !== window.top
+    debug(`is in iframe? ${isInIframe}`)
+
     return (
       <div style={{
         display: 'flex',
@@ -17,6 +22,7 @@ class Badges extends React.Component {
             image={badge.image}
             description={badge.description}
             link={badge.links.member_badge}
+            clickable={!isInIframe}
           />)
         })}
       </div>

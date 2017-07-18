@@ -3,10 +3,7 @@ import Radium from 'radium'
 import { parseImageURL, parseText } from '../helpers/fixer.jsx'
 
 class Badge extends React.Component {
-
   render () {
-    const isInIframe = window.self !== window.top
-
     const children = (
       <div>
         <img src={parseImageURL(this.props.image)} style={styles.image} />
@@ -20,19 +17,19 @@ class Badge extends React.Component {
       </div>
     )
 
-    if (isInIframe) {
-      return (
-        <div style={[styles.base]}>
-          {children}
-        </div>
-      )
-    } else {
+    if (this.props.clickable) {
       return (
         <a
           style={[styles.base, styles.baseClickable]}
           href={this.props.link}>
           {children}
         </a>
+      )
+    } else {
+      return (
+        <div style={[styles.base]}>
+          {children}
+        </div>
       )
     }
   }
