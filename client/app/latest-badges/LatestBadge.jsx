@@ -1,8 +1,8 @@
 import React from 'react'
-
+import Radium from 'radium'
 import { parseText } from '../helpers/fixer.jsx'
 
-export default class LatestBadge extends React.Component {
+class LatestBadge extends React.Component {
   render () {
     return (
       <span style={{
@@ -13,3 +13,5 @@ export default class LatestBadge extends React.Component {
     )
   }
 }
+
+export default Radium(LatestBadge)

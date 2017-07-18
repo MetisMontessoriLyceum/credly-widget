@@ -1,7 +1,7 @@
 import React from 'react'
-import { StyleRoot } from 'radium'
+import Radium, { StyleRoot } from 'radium'
 
-export default class User extends React.Component {
+class Container extends React.Component {
   render () {
     return (
       <StyleRoot>
@@ -20,3 +20,5 @@ export default class User extends React.Component {
     )
   }
 }
+
+export default Radium(Container)

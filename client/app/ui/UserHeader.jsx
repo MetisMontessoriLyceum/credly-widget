@@ -1,8 +1,8 @@
 import React from 'react'
-
+import Radium from 'radium'
 import { parseImageURL, parseText } from '../helpers/fixer.jsx'
 
-export default class Header extends React.Component {
+class UserHeader extends React.Component {
   render () {
     return (
       <div style={{
@@ -27,3 +27,5 @@ export default class Header extends React.Component {
     )
   }
 }
+
+export default Radium(UserHeader)

@@ -1,11 +1,12 @@
 import React from 'react'
+import Radium from 'radium'
 import { fetch } from '../helpers/crossURL.jsx'
 
 import LatestBadge from './LatestBadge.jsx'
 
 const debug = require('debug')('credly-widget:component:LatestBadges')
 
-export default class LatestBadges extends React.Component {
+class LatestBadges extends React.Component {
   constructor (props) {
     super(props)
     this.state = {}
@@ -34,3 +35,5 @@ export default class LatestBadges extends React.Component {
     }
   }
 }
+
+export default Radium(LatestBadges)

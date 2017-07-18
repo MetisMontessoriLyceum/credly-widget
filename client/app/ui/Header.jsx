@@ -1,8 +1,8 @@
 import React from 'react'
-
+import Radium from 'radium'
 import { parseText } from '../helpers/fixer.jsx'
 
-export default class Header extends React.Component {
+class Header extends React.Component {
   render () {
     return (
       <div>
@@ -11,3 +11,5 @@ export default class Header extends React.Component {
     )
   }
 }
+
+export default Radium(Header)

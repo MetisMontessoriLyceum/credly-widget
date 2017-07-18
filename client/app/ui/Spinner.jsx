@@ -1,7 +1,7 @@
 import React from 'react'
 import Radium from 'radium'
 
-class User extends React.Component {
+class Spinner extends React.Component {
   render () {
     const loading = Radium.keyframes({
       to: { transform: 'rotate(360deg)' }
@@ -25,4 +25,4 @@ class User extends React.Component {
   }
 }
 
-export default Radium(User)
+export default Radium(Spinner)

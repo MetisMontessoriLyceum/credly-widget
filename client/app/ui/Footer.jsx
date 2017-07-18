@@ -1,8 +1,10 @@
 import React from 'react'
+import Radium from 'radium'
+
 import CodeIcon from 'react-icons/lib/fa/code'
 import HeartIcon from 'react-icons/lib/fa/heart'
 
-export default class User extends React.Component {
+class Footer extends React.Component {
   render () {
     return (
       <div style={{
@@ -22,3 +24,5 @@ const iconStyle = {
   paddingLeft: 8,
   paddingRight: 8
 }
+
+export default Radium(Footer)

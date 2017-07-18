@@ -1,9 +1,8 @@
 import React from 'react'
 import Radium from 'radium'
-
 import { parseImageURL, parseText } from '../helpers/fixer.jsx'
 
-class User extends React.Component {
+class Badge extends React.Component {
 
   render () {
     const isInIframe = window.self !== window.top
@@ -94,4 +93,4 @@ const styles = {
   }
 }
 
-export default Radium(User)
+export default Radium(Badge)

@@ -1,7 +1,9 @@
 import React from 'react'
+import Radium from 'radium'
+
 import Badge from './Badge.jsx'
 
-export default class User extends React.Component {
+class Badges extends React.Component {
   render () {
     return (
       <div style={{
@@ -21,3 +23,5 @@ export default class User extends React.Component {
     )
   }
 }
+
+export default Radium(Badges)
