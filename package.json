@@ -7,7 +7,7 @@
     "test": "mocha",
     "lint": "standard ./bin/www ./app.js ./lib/**/*.js ./routes/**/*.js",
     "setup": "npm install && bower install",
-    "dev": "DEBUG=\"credly-widget:*\" gulp",
+    "dev": "gulp",
     "build": "webpack -p"
   },
   "dependencies": {

@@ -1,5 +1,7 @@
 'use strict'
 
+process.env.DEBUG = process.env.DEBUG || 'credly-widget:*'
+
 const gulp = require('gulp')
 const sass = require('gulp-sass')
 const spawn = require('child_process').spawn
