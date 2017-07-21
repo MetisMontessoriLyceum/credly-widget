@@ -5,6 +5,8 @@ client/public/components
 # master.
 public/components
 
+package-lock.json
+
 # Created by https://www.gitignore.io/api/node,linux
 
 ### Node ###
