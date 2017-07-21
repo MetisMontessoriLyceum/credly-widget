@@ -9,10 +9,7 @@ router.get('/:id', function (req, res, next) {
       res.json(user)
     })
     .catch(err => {
-      res.render('error', {
-        message: 'Somthing went wrong...',
-        error: err
-      })
+      next(err)
     })
 
   // res.render('badges', {user:
