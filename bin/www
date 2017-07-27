@@ -7,6 +7,26 @@
 const app = require('../app')
 const debug = require('debug')('credly-widget:server')
 const http = require('http')
+const fs = require('fs')
+const path = require('path')
+
+try {
+  const envFile = JSON.parse(fs.readFileSync(path.join(__dirname, '../ev.json')))
+  for (let key in envFile) {
+    process.env[key] = process.env[key] || envFile[key]
+  }
+} catch (e) {
+  if (!process.env.API_KEY || !process.env.API_SECRET) {
+    console.error('ERROR: API_KEY or API_SECRET missing, please create an env.json file in the')
+    console.error('       root of this project.')
+    console.error()
+    console.error('{')
+    console.error('  "API_KEY": "place api key here",')
+    console.error('  "API_SECRET": "place api secret here"')
+    console.error('}')
+    process.exit(1)
+  }
+}
 
 /**
  * Get port from environment and store in Express.

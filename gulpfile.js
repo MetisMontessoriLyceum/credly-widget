@@ -32,6 +32,11 @@ gulp.task('server', function () {
     const env = Object.create(process.env)
     env.DEV_WEBPACK = 1
     node = spawn('node', [`./bin/www`], {stdio: 'inherit', env})
+    node.on('close', (code) => {
+      if (code !== 0) {
+        process.exit(code)
+      }
+    })
   })
 })
 

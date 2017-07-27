@@ -1,4 +1,4 @@
-credly_options.json
+env.json
 client/public/components
 
 # Added to prevent git from complaining about these files when checking out form

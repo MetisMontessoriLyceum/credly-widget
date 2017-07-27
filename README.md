@@ -9,18 +9,18 @@
 3. run `npm start` to run the server, or keep `npm run dev` running in the
     background while developing.
 
-### Adding `/credly_options.json`
+### Adding `/env.json`
 
-The `/credly_options.json` file should look like this:
+The `/env.json` file should look like this:
 
 ```json
 {
-  "headers": {
-    "x-api-key": "<YOUR API KEY HERE>",
-    "x-api-secret": "<YOUR API SECRET HERE>"
-  }
+  "API_KEY": "place api key here",
+  "API_SECRET": "place api secret here"
 }
 ```
+
+You can also pass them as environment variables.
 
 ## Documentation
 
