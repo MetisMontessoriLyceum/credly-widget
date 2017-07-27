@@ -1,4 +1,4 @@
-# This file should be exactly the same as .dockerignore (except for this comment)
+# This file should be exactly the same as .gitignore (except for this comment)
 
 env.json
 client/public/components

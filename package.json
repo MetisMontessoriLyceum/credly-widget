@@ -6,7 +6,7 @@
     "start": "node ./bin/www",
     "test": "mocha",
     "lint": "standard ./bin/www ./app.js ./lib/**/*.js ./routes/**/*.js",
-    "setup": "npm install && bower install",
+    "setup": "npm install && bower install --allow-root",
     "dev": "gulp",
     "clear-cache": "redis-cli KEYS \"credly-widget:*\" | xargs redis-cli DEL",
     "build": "webpack -p"
